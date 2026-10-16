@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+data/
+tmp/pdfs/
+coverage/
+*.log
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+.DS_Store
+.idea/
+.vscode/

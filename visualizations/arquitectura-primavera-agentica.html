@@ -1,0 +1,194 @@
+<div id="primavera-architecture">
+  <style>
+    #primavera-architecture{display:grid;gap:18px;color:var(--foreground)}
+    #primavera-architecture .intro{display:grid;gap:5px}
+    #primavera-architecture .intro h2,#primavera-architecture .intro p{margin:0}
+    #primavera-architecture .architecture-flow{display:grid;grid-template-columns:minmax(130px,1fr) 28px minmax(130px,1fr) 28px minmax(130px,1fr) 28px minmax(130px,1fr) 28px minmax(130px,1fr);align-items:stretch;gap:6px}
+    #primavera-architecture .architecture-flow .card{min-width:0}
+    #primavera-architecture .node-content{display:grid;gap:7px;height:100%;align-content:start}
+    #primavera-architecture .node-heading{display:flex;align-items:center;gap:8px}
+    #primavera-architecture .node-heading i{flex:none;color:var(--viz-series-1)}
+    #primavera-architecture .node-content h3,#primavera-architecture .node-content p{margin:0}
+    #primavera-architecture .node-kicker{color:var(--muted-foreground)}
+    #primavera-architecture .flow-arrow{display:grid;place-items:center;color:var(--muted-foreground);font-weight:500}
+    #primavera-architecture .return-path{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted-foreground)}
+    #primavera-architecture .return-path i{color:var(--viz-series-2)}
+    #primavera-architecture .route-area{display:grid;gap:12px}
+    #primavera-architecture .route-panel{display:grid;gap:12px}
+    #primavera-architecture .route-panel[hidden]{display:none}
+    #primavera-architecture .route-summary{display:flex;align-items:flex-start;gap:9px}
+    #primavera-architecture .route-summary i{flex:none;color:var(--viz-series-2)}
+    #primavera-architecture .route-summary p{margin:0}
+    #primavera-architecture .route-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:0;padding:0;list-style:none;counter-reset:route}
+    #primavera-architecture .route-steps li{display:grid;grid-template-columns:auto 1fr;align-items:start;gap:8px;counter-increment:route}
+    #primavera-architecture .route-steps li::before{content:counter(route);display:grid;width:24px;height:24px;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--viz-series-1) 16%,transparent);color:var(--foreground);font-weight:500}
+    #primavera-architecture .route-steps strong,#primavera-architecture .route-steps span{display:block}
+    #primavera-architecture .route-steps span{margin-top:2px;color:var(--muted-foreground)}
+    #primavera-architecture .storage-title{display:flex;align-items:center;gap:8px;margin:0}
+    #primavera-architecture .storage-title i{color:var(--viz-series-3)}
+    #primavera-architecture .storage-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    #primavera-architecture .storage-grid .card{min-width:0}
+    #primavera-architecture .storage-content{display:grid;gap:6px}
+    #primavera-architecture .storage-content p,#primavera-architecture .storage-content strong{margin:0}
+    #primavera-architecture .storage-content .where{display:flex;align-items:center;gap:7px}
+    #primavera-architecture .storage-content i{color:var(--viz-series-3)}
+    #primavera-architecture[data-mode="autopilot"] [data-component="model"]{opacity:.36}
+    #primavera-architecture[data-mode="autopilot"] [data-component="supervisor"] .node-kicker::after{content:" · scheduler";color:var(--viz-series-2)}
+    #primavera-architecture[data-mode="contract"] [data-component="model"] .node-kicker::after{content:" · extracción";color:var(--viz-series-2)}
+    #primavera-architecture .safety-note{display:flex;align-items:center;gap:8px;color:var(--muted-foreground)}
+    #primavera-architecture .safety-note i{color:var(--green)}
+    @media(max-width:820px){
+      #primavera-architecture .architecture-flow{grid-template-columns:1fr}
+      #primavera-architecture .flow-arrow{transform:rotate(90deg);min-height:22px}
+      #primavera-architecture .route-steps{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:520px){
+      #primavera-architecture .route-steps,#primavera-architecture .storage-grid{grid-template-columns:1fr}
+      #primavera-architecture .return-path{justify-content:flex-start}
+    }
+  </style>
+
+  <div class="intro">
+    <h2>Primavera Agentica, de un vistazo</h2>
+    <p class="text-muted">La persona conversa; el supervisor decide; MCP ejecuta lecturas controladas; Unifier conserva el dato oficial.</p>
+  </div>
+
+  <section class="architecture-flow" aria-label="Flujo principal desde la interfaz hasta Primavera Unifier">
+    <article class="card" data-component="browser">
+      <div class="node-content">
+        <div class="node-heading"><i data-lucide="monitor" aria-hidden="true"></i><h3>1. Interfaz</h3></div>
+        <span class="node-kicker text-small">Navegador</span>
+        <p class="text-small">Shell activo, conversación, tarjetas de agentes, contratos y alertas.</p>
+      </div>
+    </article>
+    <div class="flow-arrow" aria-hidden="true">→</div>
+    <article class="card" data-component="supervisor">
+      <div class="node-content">
+        <div class="node-heading"><i data-lucide="brain-circuit" aria-hidden="true"></i><h3>2. Supervisor</h3></div>
+        <span class="node-kicker text-small">Backend Node.js</span>
+        <p class="text-small">Mantiene el contexto y elige qué especialista necesita la petición.</p>
+      </div>
+    </article>
+    <div class="flow-arrow" aria-hidden="true">→</div>
+    <article class="card" data-component="model">
+      <div class="node-content">
+        <div class="node-heading"><i data-lucide="sparkles" aria-hidden="true"></i><h3>3. IA</h3></div>
+        <span class="node-kicker text-small">OCI GenAI / Responses</span>
+        <p class="text-small">Comprende la intención, solicita herramientas y redacta la respuesta.</p>
+      </div>
+    </article>
+    <div class="flow-arrow" aria-hidden="true">→</div>
+    <article class="card" data-component="mcp">
+      <div class="node-content">
+        <div class="node-heading"><i data-lucide="wrench" aria-hidden="true"></i><h3>4. MCP</h3></div>
+        <span class="node-kicker text-small">Proceso local por stdio</span>
+        <p class="text-small">Ficha 360, salud, riesgos, costes, planificación, BPs y documentos.</p>
+      </div>
+    </article>
+    <div class="flow-arrow" aria-hidden="true">→</div>
+    <article class="card" data-component="unifier">
+      <div class="node-content">
+        <div class="node-heading"><i data-lucide="database" aria-hidden="true"></i><h3>5. Unifier</h3></div>
+        <span class="node-kicker text-small">REST API V1 / V2</span>
+        <p class="text-small">Fuente oficial de shells, BPs, Cost Sheet, Schedule y Document Manager.</p>
+      </div>
+    </article>
+  </section>
+
+  <div class="return-path text-small"><i data-lucide="corner-up-left" aria-hidden="true"></i><span>Los datos vuelven por el mismo camino y se presentan como respuesta, evidencia o alerta.</span></div>
+
+  <hr>
+
+  <section class="route-area" aria-labelledby="route-title">
+    <h3 id="route-title">Elige un recorrido</h3>
+    <div class="nav nav-pills" role="tablist" aria-label="Recorridos de la solución">
+      <button class="nav-link active" id="route-chat" role="tab" aria-controls="panel-chat" aria-selected="true" type="button" data-route="chat">Conversación</button>
+      <button class="nav-link" id="route-autopilot" role="tab" aria-controls="panel-autopilot" aria-selected="false" type="button" data-route="autopilot">Autopilot diario</button>
+      <button class="nav-link" id="route-contract" role="tab" aria-controls="panel-contract" aria-selected="false" type="button" data-route="contract">Contrato</button>
+    </div>
+
+    <div class="route-panel" id="panel-chat" role="tabpanel" aria-labelledby="route-chat">
+      <div class="route-summary"><i data-lucide="message-circle" aria-hidden="true"></i><p><strong>Ejemplo:</strong> “Dame la ficha 360 de P-0001”. La IA decide usar el workflow adecuado y devuelve una explicación con datos reales.</p></div>
+      <ol class="route-steps">
+        <li><div><strong>Pregunta</strong><span class="text-small">La UI incorpora el shell activo.</span></div></li>
+        <li><div><strong>Decisión</strong><span class="text-small">El supervisor selecciona Ficha 360.</span></div></li>
+        <li><div><strong>Lectura</strong><span class="text-small">MCP encadena REST V1 y V2.</span></div></li>
+        <li><div><strong>Respuesta</strong><span class="text-small">La IA resume evidencia y resultado.</span></div></li>
+      </ol>
+    </div>
+
+    <div class="route-panel" id="panel-autopilot" role="tabpanel" aria-labelledby="route-autopilot" hidden>
+      <div class="route-summary"><i data-lucide="radar" aria-hidden="true"></i><p><strong>Ejemplo:</strong> cada mañana revisa P-0001. Este recorrido es determinista: no necesita que la IA decida qué leer.</p></div>
+      <ol class="route-steps">
+        <li><div><strong>Programa</strong><span class="text-small">El scheduler despierta a la hora configurada.</span></div></li>
+        <li><div><strong>Fotografía</strong><span class="text-small">MCP consulta coste, plan, BPs y aprobaciones.</span></div></li>
+        <li><div><strong>Compara</strong><span class="text-small">El backend contrasta con la línea base local.</span></div></li>
+        <li><div><strong>Alerta</strong><span class="text-small">Solo avisa si existe un cambio relevante.</span></div></li>
+      </ol>
+    </div>
+
+    <div class="route-panel" id="panel-contract" role="tabpanel" aria-labelledby="route-contract" hidden>
+      <div class="route-summary"><i data-lucide="file-check-2" aria-hidden="true"></i><p><strong>Ejemplo:</strong> contrato y anexos se convierten en un borrador revisable. Nada se publica sin validación humana y confirmación.</p></div>
+      <ol class="route-steps">
+        <li><div><strong>Documentos</strong><span class="text-small">El usuario selecciona contrato y anexos PDF.</span></div></li>
+        <li><div><strong>Extracción</strong><span class="text-small">La IA propone campos, partidas y conflictos.</span></div></li>
+        <li><div><strong>Revisión</strong><span class="text-small">Una persona corrige y resuelve bloqueos.</span></div></li>
+        <li><div><strong>Publicación</strong><span class="text-small">MCP crea el BP y adjunta PDFs e historial.</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <hr>
+
+  <h3 class="storage-title"><i data-lucide="hard-drive" aria-hidden="true"></i>Dónde queda cada cosa</h3>
+  <section class="storage-grid" aria-label="Persistencia de la solución">
+    <article class="card">
+      <div class="storage-content">
+        <div class="where"><i data-lucide="panel-top" aria-hidden="true"></i><strong>Navegador</strong></div>
+        <p class="text-small text-muted">Shell activo, identificador de conversación e historial contractual todavía no publicado.</p>
+      </div>
+    </article>
+    <article class="card">
+      <div class="storage-content">
+        <div class="where"><i data-lucide="server" aria-hidden="true"></i><strong>Backend local</strong></div>
+        <p class="text-small text-muted">Configuración segura, línea base y alertas operativas del Autopilot.</p>
+      </div>
+    </article>
+    <article class="card">
+      <div class="storage-content">
+        <div class="where"><i data-lucide="cloud" aria-hidden="true"></i><strong>Primavera Unifier</strong></div>
+        <p class="text-small text-muted">Dato corporativo oficial; contratos publicados y su historial PDF + JSON.</p>
+      </div>
+    </article>
+  </section>
+
+  <div class="safety-note text-small"><i data-lucide="shield-check" aria-hidden="true"></i><span>Las consultas son de solo lectura. Las escrituras permanecen bloqueadas salvo habilitación y confirmación explícitas.</span></div>
+
+  <script>
+    (() => {
+      const root = document.getElementById('primavera-architecture');
+      const buttons = [...root.querySelectorAll('[data-route]')];
+      const panels = [...root.querySelectorAll('[role="tabpanel"]')];
+      const saved = window.openai?.widgetState?.privateContent?.route;
+      const initial = buttons.some(button => button.dataset.route === saved) ? saved : 'chat';
+      const selectRoute = (route, save = true) => {
+        root.dataset.mode = route;
+        buttons.forEach(button => {
+          const selected = button.dataset.route === route;
+          button.classList.toggle('active', selected);
+          button.setAttribute('aria-selected', String(selected));
+        });
+        panels.forEach(panel => { panel.hidden = panel.id !== `panel-${route}`; });
+        if (save && window.openai?.setWidgetState) {
+          window.openai.setWidgetState({ modelContent: { selectedArchitectureRoute: route }, privateContent: { route } }).catch(() => {});
+        }
+      };
+      buttons.forEach(button => button.addEventListener('click', () => selectRoute(button.dataset.route)));
+      selectRoute(initial, false);
+      window.addEventListener('openai:set_globals', event => {
+        const route = event.detail?.globals?.widgetState?.privateContent?.route;
+        if (buttons.some(button => button.dataset.route === route)) selectRoute(route, false);
+      });
+    })();
+  </script>
+</div>

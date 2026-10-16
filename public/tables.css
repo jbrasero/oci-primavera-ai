@@ -1,0 +1,6 @@
+.markdown .table-wrap{max-width:100%;overflow-x:auto;margin:10px 0 14px;border:1px solid #d5e1f2;border-radius:8px}
+.markdown table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.4}
+.markdown th,.markdown td{padding:8px 10px;text-align:left;vertical-align:top;border-bottom:1px solid #e0e8f4;white-space:nowrap}
+.markdown th{background:#edf4ff;color:#123664;font-weight:750}
+.markdown tbody tr:nth-child(even){background:#f9fbff}
+.markdown tbody tr:last-child td{border-bottom:0}
